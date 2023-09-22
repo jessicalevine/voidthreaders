@@ -11,9 +11,15 @@ public class Starlane : MonoBehaviour {
     private LineRenderer lineRenderer;
 
     public static Vector2 TargetDockingPosition(Vector2 starlaneStart, Vector2 starlaneEnd) {
-        return starlaneStart + Vector2.Perpendicular(
-            starlaneEnd - starlaneStart
-        ).normalized * 0.6f;
+        Vector2 dockingVector = Vector2.Perpendicular(starlaneEnd - starlaneStart).normalized;
+
+        // Ensure you are always at the perpendicular that faces towards the top of the screen
+        if (dockingVector.y < 0) {
+            dockingVector.y = -dockingVector.y;
+            dockingVector.x = -dockingVector.x;
+        }
+
+        return starlaneStart + dockingVector * 0.6f;
     }
 
     public static Vector2 LanePos(GameObject startPlanet, GameObject endPlanet) {

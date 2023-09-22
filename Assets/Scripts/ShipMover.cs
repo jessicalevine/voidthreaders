@@ -62,25 +62,22 @@ public class ShipMover : MonoBehaviour {
             foreach (Starlane starlane in starlanes) {
                 Debug.Log("Evaluating lane " + activePlanet.name);
 
-                /*
-                if (starlane.HasPlanet(activePlanet)) {
-                    Debug.Log("Has the planet " + activePlanet.name);
-                */
+                targetDockLocation = starlane.DockLocationIfMatchingPlanet(targetPlanet);
+                Debug.Log("Checking if starlane " + starlane.startPlanet + ", " + starlane.endPlanet + " has planet " + targetPlanet.name);
 
-                    targetDockLocation = starlane.DockLocationIfMatchingPlanet(targetPlanet);
-                    Debug.Log("Checking if starlane " + starlane.startPlanet + ", " + starlane.endPlanet + " has planet " + targetPlanet.name);
+                if (targetDockLocation != null) {
+                    Debug.Log("Has the dock " + targetPlanet.name);
 
-                    if (targetDockLocation != null) {
-                        Debug.Log("Has the dock " + targetPlanet.name);
+                    Vector2 originDockLocation = (Vector2) starlane.DockLocationIfMatchingPlanet(activePlanet);
+                    transform.position = originDockLocation;
 
-                        traversalStartTime = Time.time;
-                        traversalStartpoint = transform.position;
-                        traversalEndpoint = (Vector2) targetDockLocation;
-                        traversalComplete = false;
-                        activePlanet = targetPlanet;
+                    traversalStartTime = Time.time;
+                    traversalStartpoint = transform.position;
+                    traversalEndpoint = (Vector2) targetDockLocation;
+                    traversalComplete = false;
+                    activePlanet = targetPlanet;
 
                 }
-                // }
             }
         }
 
