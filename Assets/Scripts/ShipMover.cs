@@ -20,6 +20,21 @@ public class ShipMover : MonoBehaviour {
 
         activePlanet = initialPlanet;
         transform.position = activePlanet.transform.position;
+
+        List<Starlane> starlanes;
+        if (GetComponent<StarlaneMap>().starlaneDictionary.TryGetValue(activePlanet, out starlanes)) {
+            if (starlanes.Count == 0)
+                throw new System.InvalidOperationException("Starting planet has list but no starlanes");
+
+            var dockLocation = starlanes[0].DockLocationIfMatchingPlanet(initialPlanet);
+            if (dockLocation == null)
+                throw new System.InvalidOperationException("Starlane does not contain planet through which starlane was found");
+
+            transform.position = (Vector2) dockLocation;
+
+        } else {
+            throw new System.InvalidOperationException("Starting planet has no list of starlanes");
+        }
     }
 
     void Update() {

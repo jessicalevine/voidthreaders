@@ -5,7 +5,7 @@ using UnityEngine;
 public class StarlaneMap : MonoBehaviour {
     public Dictionary<GameObject, List<Starlane>> starlaneDictionary;
 
-    void Start() {
+    void Awake() {
         starlaneDictionary = new Dictionary<GameObject, List<Starlane>>();
 
         for (int i = 0; i < this.gameObject.transform.childCount; i++) {
