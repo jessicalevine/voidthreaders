@@ -11,7 +11,7 @@ public class PlayerShipComponent : ShipComponent
         }
 
         ship = PlayerShip.Instantiate(initialPlanet, new List<CargoItem>()).Ship;
-        //PlayerShip.Instance.Ship.cargo.Add(new CargoItem("Food", 1));
+        //PlayerShip.Instance.Ship.cargo.Add(new CargoItem("Food", 3));
         //PlayerShip.Instance.Ship.cargo.Add(new CargoItem("Ammo", 1));
 
     }

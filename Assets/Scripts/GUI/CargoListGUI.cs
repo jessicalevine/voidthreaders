@@ -27,7 +27,7 @@ public class CargoListGUI
         for (int i = 0; i < cargo.Count; i++) {
             relativeY = i * (cargoItemHeight + cargoItemPadding);
             GUI.DrawTexture(new Rect(0, relativeY, cargoItemLabelBoxWidth, cargoItemHeight), CargoTexture, ScaleMode.StretchToFill);
-            GUI.Label(new Rect(40, relativeY + 7, cargoItemLabelBoxWidth, cargoItemHeight), cargo[i].Name);
+            GUI.Label(new Rect(40, relativeY + 7, cargoItemLabelBoxWidth, cargoItemHeight), cargo[i].Quantity + "x " + cargo[i].Name);
             if (PlayerShip.Instance.Ship.IsDockedAtPlanet())
                 GUI.Button(new Rect(cargoItemLabelBoxWidth - 10, relativeY, 80, cargoItemHeight), "Drop");
 
