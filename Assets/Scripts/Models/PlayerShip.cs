@@ -4,7 +4,7 @@ using UnityEngine;
 
 public sealed class PlayerShip {
     private static PlayerShip instance = null;
-    public static CargoShip Ship { get; set; }
+    public CargoShip Ship { get; set; }
 
     private PlayerShip(GameObject initialPlanet, List<CargoItem> initialCargo) {
         Ship = new CargoShip(initialPlanet, initialCargo);
