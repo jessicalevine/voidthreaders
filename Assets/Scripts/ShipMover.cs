@@ -5,24 +5,25 @@ using UnityEngine;
 public class ShipMover : MonoBehaviour {
 
     [SerializeField] private GameObject initialPlanet;
-    public GameObject activePlanet;
     public float speed = 1.0f;
+
+    public Ship ship;
 
     private float traversalStartTime;
     private Vector2 traversalStartpoint;
     private Vector2 traversalEndpoint;
-    private bool traversalComplete = true;
 
     void Start() {
         if (initialPlanet == null) {
             Debug.Log("Set a start location for " + name);
         }
 
-        activePlanet = initialPlanet;
-        transform.position = activePlanet.transform.position;
+        ship = new Ship(initialPlanet);
+
+        transform.position = ship.ActivePlanet.transform.position;
 
         List<Starlane> starlanes;
-        if (GetComponent<StarlaneMap>().starlaneDictionary.TryGetValue(activePlanet, out starlanes)) {
+        if (GetComponent<StarlaneMap>().starlaneDictionary.TryGetValue(ship.ActivePlanet, out starlanes)) {
             if (starlanes.Count == 0)
                 throw new System.InvalidOperationException("Starting planet has list but no starlanes");
 
@@ -38,7 +39,7 @@ public class ShipMover : MonoBehaviour {
     }
 
     void Update() {
-        if (traversalComplete) {
+        if (ship.IsDockedAtPlanet()) {
             RaycastHit2D hit;
             if (Input.GetMouseButtonDown(0)) {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -63,7 +64,7 @@ public class ShipMover : MonoBehaviour {
             transform.position = Vector3.Lerp(traversalStartpoint, traversalEndpoint, fractionOfJourney);
 
             if (fractionOfJourney >= 1) {
-                traversalComplete = true;
+                ship.CompleteTraversal();
             }
         }
     }
@@ -71,11 +72,11 @@ public class ShipMover : MonoBehaviour {
         Vector2? targetDockLocation = null;
         List<Starlane> starlanes;
 
-        if (GetComponent<StarlaneMap>().starlaneDictionary.TryGetValue(activePlanet, out starlanes)) {
-            Debug.Log("Dict includes " + activePlanet.name);
+        if (targetPlanet != ship.ActivePlanet && GetComponent<StarlaneMap>().starlaneDictionary.TryGetValue(ship.ActivePlanet, out starlanes)) {
+            Debug.Log("Dict includes " + ship.ActivePlanet.name);
 
             foreach (Starlane starlane in starlanes) {
-                Debug.Log("Evaluating lane " + activePlanet.name);
+                Debug.Log("Evaluating lane " + ship.ActivePlanet.name);
 
                 targetDockLocation = starlane.DockLocationIfMatchingPlanet(targetPlanet);
                 Debug.Log("Checking if starlane " + starlane.startPlanet + ", " + starlane.endPlanet + " has planet " + targetPlanet.name);
@@ -83,15 +84,15 @@ public class ShipMover : MonoBehaviour {
                 if (targetDockLocation != null) {
                     Debug.Log("Has the dock " + targetPlanet.name);
 
-                    Vector2 originDockLocation = (Vector2) starlane.DockLocationIfMatchingPlanet(activePlanet);
+                    Vector2 originDockLocation = (Vector2) starlane.DockLocationIfMatchingPlanet(ship.ActivePlanet);
                     transform.position = originDockLocation;
 
                     traversalStartTime = Time.time;
                     traversalStartpoint = transform.position;
                     traversalEndpoint = (Vector2) targetDockLocation;
-                    traversalComplete = false;
-                    activePlanet = targetPlanet;
+                    ship.BeginTraversal(targetPlanet);
 
+                    return;
                 }
             }
         }
