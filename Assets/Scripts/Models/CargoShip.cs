@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CargoShip : Ship {
-    public List<CargoItem> cargo = new List<CargoItem>();
+    public CargoManifest cargo = new CargoManifest();
 
-    public CargoShip(GameObject initialPlanet, List<CargoItem> initialCargo) : base(initialPlanet) {
-        cargo.AddRange(initialCargo);
+    public CargoShip(GameObject initialPlanet, CargoManifest initialCargo = null) : base(initialPlanet) {
+        if (initialCargo != null)
+            cargo = initialCargo;
     }
 }

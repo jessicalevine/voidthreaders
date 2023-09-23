@@ -10,9 +10,9 @@ public class PlayerShipComponent : ShipComponent
             Debug.LogError("Set a start location for " + name);
         }
 
-        ship = PlayerShip.Instantiate(initialPlanet, new List<CargoItem>()).Ship;
-        //PlayerShip.Instance.Ship.cargo.Add(new CargoItem("Food", 3));
-        //PlayerShip.Instance.Ship.cargo.Add(new CargoItem("Ammo", 1));
+        ship = PlayerShip.Instantiate(initialPlanet).Ship;
+       //PlayerShip.Instance.Ship.cargo.AddCargo("Food", 3);
+       // PlayerShip.Instance.Ship.cargo.AddCargo("Weapons");
 
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CargoListGUI
@@ -23,11 +24,13 @@ public class CargoListGUI
 
         GUILayout.BeginVertical();
         int relativeY;
-        List<CargoItem> cargo = PlayerShip.Instance.Ship.cargo;
-        for (int i = 0; i < cargo.Count; i++) {
+        CargoManifest cargo = PlayerShip.Instance.Ship.cargo;
+  
+        for (int i = 0; i < cargo.Count(); i++) {
+            var element = cargo.cargoDict.ElementAt(i);
             relativeY = i * (cargoItemHeight + cargoItemPadding);
             GUI.DrawTexture(new Rect(0, relativeY, cargoItemLabelBoxWidth, cargoItemHeight), CargoTexture, ScaleMode.StretchToFill);
-            GUI.Label(new Rect(40, relativeY + 7, cargoItemLabelBoxWidth, cargoItemHeight), cargo[i].Quantity + "x " + cargo[i].Name);
+            GUI.Label(new Rect(40, relativeY + 7, cargoItemLabelBoxWidth, cargoItemHeight), element.Value + "x " + element.Key);
             if (PlayerShip.Instance.Ship.IsDockedAtPlanet())
                 GUI.Button(new Rect(cargoItemLabelBoxWidth - 10, relativeY, 80, cargoItemHeight), "Drop");
 
