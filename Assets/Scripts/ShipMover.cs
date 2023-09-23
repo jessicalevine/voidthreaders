@@ -5,6 +5,8 @@ using UnityEngine;
 public class ShipMover : MonoBehaviour {
 
     [SerializeField] private GameObject initialPlanet;
+    [SerializeField] private StarlaneMap starlaneMap;
+
     public float speed = 1.0f;
 
     public Ship ship;
@@ -23,7 +25,7 @@ public class ShipMover : MonoBehaviour {
         transform.position = ship.ActivePlanet.transform.position;
 
         List<Starlane> starlanes;
-        if (GetComponent<StarlaneMap>().starlaneDictionary.TryGetValue(ship.ActivePlanet, out starlanes)) {
+        if (starlaneMap.starlaneDictionary.TryGetValue(ship.ActivePlanet, out starlanes)) {
             if (starlanes.Count == 0)
                 throw new System.InvalidOperationException("Starting planet has list but no starlanes");
 
@@ -72,7 +74,7 @@ public class ShipMover : MonoBehaviour {
         Vector2? targetDockLocation = null;
         List<Starlane> starlanes;
 
-        if (targetPlanet != ship.ActivePlanet && GetComponent<StarlaneMap>().starlaneDictionary.TryGetValue(ship.ActivePlanet, out starlanes)) {
+        if (targetPlanet != starlaneMap.starlaneDictionary.TryGetValue(ship.ActivePlanet, out starlanes)) {
             Debug.Log("Dict includes " + ship.ActivePlanet.name);
 
             foreach (Starlane starlane in starlanes) {
