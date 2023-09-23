@@ -426,6 +426,7 @@ GameObject:
   - component: {fileID: 535306923}
   - component: {fileID: 535306925}
   - component: {fileID: 535306926}
+  - component: {fileID: 535306927}
   m_Layer: 0
   m_Name: 'Player: Cruiser 3'
   m_TagString: Untagged
@@ -519,8 +520,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3f527088506914893ab8b6ede916d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialPlanet: {fileID: 2033523697}
-  activePlanet: {fileID: 0}
+  starlaneMap: {fileID: 535306926}
+  shipComponent: {fileID: 535306927}
   speed: 2
 --- !u!114 &535306926
 MonoBehaviour:
@@ -534,6 +535,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d994f29fd29c814e8010b3f479cceac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &535306927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 535306922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5376e00fd4158bb4a95a1e5f2e892e2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialPlanet: {fileID: 2033523697}
 --- !u!1 &572722116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1395,7 +1409,6 @@ GameObject:
   - component: {fileID: 1545795701}
   - component: {fileID: 1545795700}
   - component: {fileID: 1545795699}
-  - component: {fileID: 1545795704}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1417,7 +1430,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guiSkin: {fileID: 11400000, guid: 9705c0e7595e14d42bcd9e476468d8d7, type: 2}
   cargoTexture: {fileID: 2800000, guid: 06edc4e02f9c48647adfed0a778cb8aa, type: 3}
-  playerShip: {fileID: 535306922}
 --- !u!114 &1545795700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1498,18 +1510,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1545795704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1545795698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ce54539815549e4e847b06446694e87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1594123523
 GameObject:
   m_ObjectHideFlags: 0
