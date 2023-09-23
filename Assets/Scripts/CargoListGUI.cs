@@ -2,47 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CargoListGUI : MonoBehaviour
+public class CargoListGUI
 {
-    public Texture2D cargoTexture;
+    public Texture2D CargoTexture { get; set; }
 
-    private const int windowHeight = 400;
-    private const int windowWidth = 380;
-
-    private const int areaX = 40;
-    private const int areaY = 40;
-    private const int areaW = windowWidth - areaX - 10;
-    private const int areaH = windowHeight - areaY - 2;
     private const int cargoItemHeight = 35;
     private const int cargoItemPadding = 5;
     private const int cargoItemLabelBoxWidth = 250;
 
-    Rect windowRect = new Rect(0, 0, windowHeight, windowWidth);
+    Rect windowRect;
     Vector2 cargoListItemsScrollPos = Vector2.zero;
-
-    List<string> cargoItems = new List<string>();
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public CargoListGUI(Texture2D cargoTexture, int windowWidth, int windowHeight) {
+        CargoTexture = cargoTexture;
+        windowRect = new Rect(0, 0, windowWidth, windowHeight);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    void RenderCargoList() {
+    public void RenderCargoList() {
         // Cargo list items
         cargoListItemsScrollPos = GUILayout.BeginScrollView(cargoListItemsScrollPos);
 
         GUILayout.BeginVertical();
         int relativeY;
-        for (int i = 0; i < cargoItems.Count; i++) {
+        List<CargoItem> cargo = PlayerShip.Instance.Ship.cargo;
+        for (int i = 0; i < cargo.Count; i++) {
             relativeY = i * (cargoItemHeight + cargoItemPadding);
-            GUI.DrawTexture(new Rect(0, relativeY, cargoItemLabelBoxWidth, cargoItemHeight), cargoTexture, ScaleMode.StretchToFill);
-            GUI.Label(new Rect(areaX, relativeY + 7, cargoItemLabelBoxWidth, cargoItemHeight), cargoItems[i]);
+            GUI.DrawTexture(new Rect(0, relativeY, cargoItemLabelBoxWidth, cargoItemHeight), CargoTexture, ScaleMode.StretchToFill);
+            GUI.Label(new Rect(40, relativeY + 7, cargoItemLabelBoxWidth, cargoItemHeight), cargo[i].Name);
             if (PlayerShip.Instance.Ship.IsDockedAtPlanet())
                 GUI.Button(new Rect(cargoItemLabelBoxWidth - 10, relativeY, 80, cargoItemHeight), "Drop");
 

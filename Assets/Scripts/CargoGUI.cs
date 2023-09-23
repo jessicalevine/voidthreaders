@@ -14,21 +14,17 @@ public class CargoGUI : MonoBehaviour
 	private const int areaY = 40;
 	private const int areaW = windowWidth - areaX - 10;
 	private const int areaH = windowHeight - areaY - 2;
-	private const int cargoItemHeight = 35;
-	private const int cargoItemPadding = 5;
-	private const int cargoItemLabelBoxWidth = 250;
 
 	Rect windowRect = new Rect(0, 0, windowHeight, windowWidth);
 	Vector2 cargoListItemsScrollPos = Vector2.zero;
 
-	List<string> cargoItems = new List<string>();
+	private CargoListGUI cargoListGUI;
 
 	void Start() {
+		cargoListGUI = new CargoListGUI(cargoTexture, windowWidth, windowHeight);
+
 		windowRect.x = (Screen.width - windowRect.width) - 50;
 		windowRect.y = 50;
-		cargoItems.Add("Weapons");
-		cargoItems.Add("Food");
-		cargoItems.Add("Ammo");
 	}
 
 	void OnGUI() {
@@ -44,16 +40,7 @@ public class CargoGUI : MonoBehaviour
 		cargoListItemsScrollPos = GUILayout.BeginScrollView(cargoListItemsScrollPos);
 
 		GUILayout.BeginVertical();
-		int relativeY;
-		for(int i = 0; i < cargoItems.Count; i++) {
-			relativeY = i * (cargoItemHeight + cargoItemPadding);
-			GUI.DrawTexture(new Rect(0, relativeY, cargoItemLabelBoxWidth, cargoItemHeight), cargoTexture, ScaleMode.StretchToFill);
-			GUI.Label(new Rect(areaX, relativeY + 7, cargoItemLabelBoxWidth, cargoItemHeight), cargoItems[i]);
-			if(PlayerShip.Instance.Ship.IsDockedAtPlanet())
-				GUI.Button(new Rect(cargoItemLabelBoxWidth - 10, relativeY, 80, cargoItemHeight), "Drop");
-
-			GUILayout.Space(relativeY);
-		}
+		cargoListGUI.RenderCargoList();
 
 		GUILayout.EndVertical();
 		GUILayout.EndScrollView();
