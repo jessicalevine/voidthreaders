@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CargoItem : MonoBehaviour
+public class CargoItem
 {
     public string Name { get; set; }
     public int Quantity { get; set; }
