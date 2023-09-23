@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CargoListGUI : MonoBehaviour
 {
-    public GameObject playerShip;
     public Texture2D cargoTexture;
 
     private const int windowHeight = 400;
@@ -44,7 +43,7 @@ public class CargoListGUI : MonoBehaviour
             relativeY = i * (cargoItemHeight + cargoItemPadding);
             GUI.DrawTexture(new Rect(0, relativeY, cargoItemLabelBoxWidth, cargoItemHeight), cargoTexture, ScaleMode.StretchToFill);
             GUI.Label(new Rect(areaX, relativeY + 7, cargoItemLabelBoxWidth, cargoItemHeight), cargoItems[i]);
-            if (playerShip.GetComponent<ShipMover>().ship.IsDockedAtPlanet())
+            if (PlayerShip.Instance.Ship.IsDockedAtPlanet())
                 GUI.Button(new Rect(cargoItemLabelBoxWidth - 10, relativeY, 80, cargoItemHeight), "Drop");
 
             GUILayout.Space(relativeY);

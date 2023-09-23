@@ -6,7 +6,6 @@ public class CargoGUI : MonoBehaviour
 {
 	public GUISkin guiSkin;
 	public Texture2D cargoTexture;
-	public GameObject playerShip;
 
 	private const int windowHeight = 400;
 	private const int windowWidth = 380;
@@ -50,7 +49,7 @@ public class CargoGUI : MonoBehaviour
 			relativeY = i * (cargoItemHeight + cargoItemPadding);
 			GUI.DrawTexture(new Rect(0, relativeY, cargoItemLabelBoxWidth, cargoItemHeight), cargoTexture, ScaleMode.StretchToFill);
 			GUI.Label(new Rect(areaX, relativeY + 7, cargoItemLabelBoxWidth, cargoItemHeight), cargoItems[i]);
-			if(playerShip.GetComponent<ShipMover>().ship.IsDockedAtPlanet())
+			if(PlayerShip.Instance.Ship.IsDockedAtPlanet())
 				GUI.Button(new Rect(cargoItemLabelBoxWidth - 10, relativeY, 80, cargoItemHeight), "Drop");
 
 			GUILayout.Space(relativeY);
